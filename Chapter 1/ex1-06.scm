@@ -1,8 +1,16 @@
 ; We iterate from our starting point, guess, and improve our guess of the square root each time and it is deemed good enough, via the good-enough function
-;(define (sqrt-iter guess x)
-;  (if (good-enough guess x)
-;    guess
-;    (sqrt-iter (improve guess x) x)))
+
+; Because our interpreter is applicative order, it evaluates everything in the expression. Therefore, with our new-if function, sqrt-iter falls into an infiniite chain of iterations betwcause sqrt-iter is the else clause of new-if, and therefore has to be evaluated. So sqrt-iter ends up calling itself infinitely and never terminates. 
+(define (sqrt-iter guess x)
+  (new-if (good-enough guess x)
+  ;(if (good-enough guess x)
+    guess
+    (sqrt-iter (improve guess x) x)))
+
+; New if function written by Eva Lu Ator
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
 
 ; In Newton's method, we improve our guess for the next iteration by replacing guess with the average of guess and x/guess
 (define (improve guess x)
@@ -26,13 +34,3 @@
 
 ; test
 (sqrt (+ (sqrt 2) (sqrt 3)))
-
-; We can define a new "if" procudure using just using the "cond" keyword
-(define (new-if predicate then-clause else-clause)
-  (cond (predicate then-clause))
-        (else else-clause))
-
-(define (sqrt-iter guess x)
-  (new-if (good-enough guess x)
-    guess
-    (sqrt-iter (improve guess x) x)))
