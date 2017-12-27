@@ -1,14 +1,10 @@
-; We iterate from our starting point, guess, and improve our guess of the square root each time and it is deemed good enough, via the good-enough function
-;(define (sqrt-iter guess x)
-;  (define (guess_new (improve guess)))
-;  (if (good-enough guess guess_new)
-;    guess
-;    (sqrt-iter guess_new x)))
+; Here we implement a new version of Newton's method in which we have updated the good-enough function to reflect the logic outlined in Question 1.7
 
+; This procedure caries out the main logic of the program
 (define (sqrt-iter guess guess-old x)
   (if (good-enough guess guess-old)
     guess
-    (sqrt-iter (improve guess) guess x)))
+    (sqrt-iter (improve guess x) guess x)))
 
 ; In Newton's method, we improve our guess for the next iteration by replacing guess with the average of guess and x/guess
 (define (improve guess x)
@@ -30,5 +26,8 @@
 (define (sqrt x)
   (sqrt-iter 1.0 0 x))
 
-; test
-(sqrt (+ (sqrt 2) (sqrt 3)))
+; tests
+(sqrt 9) 3.00009155413138
+''(sqrt (+ 100 37)) 11.704699917758145
+;(sqrt (+ (sqrt 2) (sqrt 3))) 1.7739279023207892
+;(square (sqrt 1000))
