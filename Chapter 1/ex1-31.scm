@@ -12,8 +12,10 @@
 (define (factorial n)
   (product identity 1 incr n))
 
-; trial
-(factorial 5)
+(define (pi-term n)
+  (if (even? n)
+    (/ (+ n 2) (+ n 1))
+    (/ (+ n 1) (+ n 2))))
 
-; Product procedure works, now need to implement the approxumation to Pi
-; Brainblast! Make the thing increment by 2 instead of 1...much easier than the more mathematical solution you were drumming up before!
+; testing
+(* (product pi-term 1 incr 10000) 4)
