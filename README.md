@@ -1,3 +1,15 @@
+## Dr Racket
+
+Somewhere around Chapter 2 of the book, I got tired of flipping back and forth between emacs, mit-scheme repl in the terminal, and repl.it. So I decided to download Dr. Racket instead and work with the sicp packages available within Racket.
+
+Ubuntu already comes with a version of Racket installed. But just to make sure we're all up to date:
+
+1. Add the Racket ppa:
+'''sudo add-apt-repository ppa:plt/racket'''
+2. Update and install Racket:
+'''sudo apt update && sudo apt install racket'''
+
+
 ## Getting Scheme Running Locally
 
 - install the MIT Scheme interpreter from the MIT website
@@ -9,4 +21,4 @@
 
 ## Running Scheme on the Net
 
-- I use repl.it as my scratch pad for testing small snippets of Scheme code 
+- I use repl.it as my scratch pad for testing small snippets of Scheme code
