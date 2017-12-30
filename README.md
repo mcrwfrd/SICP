@@ -5,9 +5,14 @@ Somewhere around Chapter 2 of the book, I got tired of flipping back and forth b
 Ubuntu already comes with a version of Racket installed. But just to make sure we're all up to date:
 
 1. Add the Racket ppa:
-'''sudo add-apt-repository ppa:plt/racket'''
+
+```sudo add-apt-repository ppa:plt/racket```
+
 2. Update and install Racket:
-'''sudo apt update && sudo apt install racket'''
+
+```sudo apt update && sudo apt install racket```
+
+For details on the SICP collection within Racket, see https://docs.racket-lang.org/sicp-manual/
 
 
 ## Getting Scheme Running Locally
