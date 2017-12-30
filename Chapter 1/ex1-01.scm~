@@ -1,8 +1,6 @@
 ; Exercise 1.1
 ; What does the interpreter print in response to each of the following expressions?
 
-#lang sicp
-
 10 ; Prints 10
 
 (+ 5 3 4) ; Prints 12
