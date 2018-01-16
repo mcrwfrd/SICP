@@ -1,7 +1,6 @@
 #lang sicp
 
-; Points boilerplate from previous question
-
+; Points library
 (define (print-point p)
   (display "(")
   (display (x-coord p))
@@ -9,44 +8,72 @@
   (display (y-coord p))
   (display ")"))
 
-
 (define (make-point x y) (cons x y))
 (define (x-coord p) (car p))
 (define (y-coord p) (cdr p))
 
-; A rectangle is just four pounts
-
-; First implementation of rectangle. This assumes all line segments
+; First implementation of rectangle where a rectangle is just four pounts.This assumes all line segments
 ; in the rectangle are parallel to either the x- or the y-axis, which
 ; is not really a valid assumption for a complete representation
-(define (make-rectangle top-right bottom-left)
-  (cons top-right bottom-left))
+;(define (make-rectangle top-right bottom-left)
+;  (cons top-right bottom-left))
 
-; TODO: add check to see which one is the real bottom left in case
+; TODO: add sanity check to see which one is the real bottom left in case
 ; points aren't given in order
-(define (bottom-left rect)
-  (cdr rect))
-(define (bottom-right rect)
-  (make-point (car (car rect))
-              (cdr (cdr rect))))
-(define (top-right rect)
-  (car rect))
-(define (top-left rect)
-  (make-point (car (cdr rect))
-              (cdr (car rect))))
+;(define (bottom-left rect)
+  ;(cdr rect))
+;(define (bottom-right rect)
+;  (make-point (car (car rect))
+;              (cdr (cdr rect))))
+;(define (top-right rect)
+;  (car rect))
+;(define (top-left rect)
+;  (make-point (car (cdr rect))
+;              (cdr (car rect))))
 
-; Compute the perimter
+; Second implementation of rectangle constructed from a starting point, height, and width.
+(define (make-rectangle-2 bottom-left width length)
+  (cons bottom-left (cons width length)))
+
+(define (width-private rect) (car (cdr rect)))
+(define (length-private rect) (cdr (cdr rect)))
+
+(define (bottom-left rect)
+  (car rect))
+(define (bottom-right rect)
+  (make-point (+ (x-coord (bottom-left rect)) (width-private rect))
+              (y-coord (bottom-left rect))))
+(define (top-left rect)
+  (make-point (x-coord  (bottom-left rect))
+              (+ (y-coord (bottom-left rect)) (length-private rect))))
+(define (top-right rect)
+  (make-point (x-coord (bottom-right rect))
+              (y-coord (top-left rect))))
+          
+; Clients of the rectangle implementation
+(define (width rect)
+  (let ((x1 (x-coord (bottom-left rect)))
+        (x2 (x-coord (top-right rect))))
+    (- x2 x1)))
+
+(define (length rect)
+  (let ((y1 (y-coord (bottom-left rect)))
+        (y2 (y-coord (top-right rect))))
+    (- y2 y1)))
+
 (define (perimeter rect)
-  (let ((p1 (bottom-left rect))
-        (p2 (top-right rect)))
-    (let ((x1 (x-coord p1))
-          (x2 (x-coord p2))
-          (y1 (y-coord p1))
-          (y2 (y-coord p2)))
-      (* 2 (+ (- x2 x1) (- y2 y1))))))
+      (* 2 (+ (width rect) (length rect))))
+
+(define (area rect)
+  (* (width rect) (length rect)))
+  
 
 ; Testing
-(define r1 (make-rectangle (make-point 1 1)
-                      (make-point -1 -1)))
-(perimeter r1)
+;(define r1 (make-rectangle (make-point 1 1)
+;                      (make-point -1 -1)))
+
+(define r2 (make-rectangle-2 (make-point -1 -1) 2 2))
+
+(area r2)
+
   
